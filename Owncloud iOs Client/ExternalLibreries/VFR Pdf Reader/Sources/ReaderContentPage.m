@@ -28,6 +28,8 @@
 #import "ReaderContentTile.h"
 #import "CGPDFDocument.h"
 
+#import "WaterMarkTool.h"
+
 @implementation ReaderContentPage
 {
 	NSMutableArray *_links;
@@ -545,6 +547,7 @@
 	//CGContextSetRenderingIntent(context, kCGRenderingIntentDefault); CGContextSetInterpolationQuality(context, kCGInterpolationDefault);
 
 	CGContextDrawPDFPage(context, _PDFPageRef); // Render the PDF page into the context
+    CGContextDrawImage(context, self.bounds, [WaterMarkTool waterMarkWithSize:self.bounds.size].CGImage);
 
 	if (readerContentPage != nil) readerContentPage = nil; // Release self
 }

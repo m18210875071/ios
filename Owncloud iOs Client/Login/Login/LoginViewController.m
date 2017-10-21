@@ -38,6 +38,7 @@
 #import "UtilsFramework.h"
 #import "UtilsCookies.h"
 #import "ManageCookiesStorageDB.h"
+#import "UIImage+FillColor.h"
 
 #define k_http_prefix @"http://"
 #define k_https_prefix @"https://"
@@ -147,6 +148,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     isUserTextUp = NO;
     isPasswordTextUp = NO;
 
+    logoImageView.image = [self imageNamed:@"CompanyLogo"];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -211,6 +213,11 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIImage *)imageNamed:(NSString *)name {
+    
+    return [[UIImage imageNamed:name] imageWithColor:[UIColor colorOfNavigationBar]];
 }
 
 #pragma mark - Draw Position
@@ -903,7 +910,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
 
     cell.textLabel.textColor = [UIColor colorWithRed:0/256.0f green:0/256.0f blue:0/256.0f alpha:1];
     
-    UIImageView *iconLeftImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"server.png"]];
+    UIImageView *iconLeftImage= [[UIImageView alloc] initWithImage:[self imageNamed:@"server.png"]];
     [iconLeftImage setFrame:_imageTextFieldLeftFrame];
     
     self.urlTextField = [[UITextField alloc]initWithFrame:_urlFrame];
@@ -923,6 +930,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     self.urlTextField.textColor = [UIColor colorOfURLUserPassword];
     self.urlTextField.placeholder = NSLocalizedString(@"url_sample", nil);
     
+    
     if(!urlEditable) {
         [self.urlTextField setEnabled:NO];
     }
@@ -935,7 +943,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     
     [refreshTestServerButton addTarget:self action:@selector(checkUrlManually) forControlEvents:UIControlEventTouchUpInside];
     [refreshTestServerButton setFrame:refreshButtonFrame];
-    [refreshTestServerButton setBackgroundImage:[UIImage imageNamed:@"ReconnectIcon.png"] forState:UIControlStateNormal];
+    [refreshTestServerButton setBackgroundImage:[self imageNamed:@"ReconnectIcon.png"] forState:UIControlStateNormal];
     
     if(([self.urlTextField.text length] > 0) && !isConnectionToServer && !isCheckingTheServerRightNow) {
         [refreshTestServerButton setHidden:NO];
@@ -956,7 +964,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     
     cell.textLabel.textColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:1];
     
-    UIImageView *iconLeftImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user.png"]];
+    UIImageView *iconLeftImage= [[UIImageView alloc] initWithImage:[self imageNamed:@"user.png"]];
     [iconLeftImage setFrame:_imageTextFieldLeftFrame];
     
     self.usernameTextField = [[UITextField alloc]initWithFrame:_userAndPasswordFrame];
@@ -1005,7 +1013,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     
     cell.textLabel.textColor = [UIColor colorWithRed:0/256.0f green:0/256.0f blue:0/256.0f alpha:1];
     
-    UIImageView *iconLeftImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"password.png"]];
+    UIImageView *iconLeftImage= [[UIImageView alloc] initWithImage:[self imageNamed:@"password.png"]];
     [iconLeftImage setFrame:_imageTextFieldLeftFrame];
     
     self.passwordTextField = [[UITextField alloc]initWithFrame:_userAndPasswordFrame];
@@ -1029,7 +1037,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     [showPasswordCharacterButton addTarget:self action:@selector(hideOrShowPassword) forControlEvents:UIControlEventTouchUpInside];
     [showPasswordCharacterButton setFrame:showPasswordButtonFrame];
     
-    [showPasswordCharacterButton setBackgroundImage:[UIImage imageNamed:@"RevealPasswordIcon.png"] forState:UIControlStateNormal];
+    [showPasswordCharacterButton setBackgroundImage:[self imageNamed:@"RevealPasswordIcon.png"] forState:UIControlStateNormal];
     
     [cell.contentView addSubview:iconLeftImage];
     [cell.contentView addSubview:self.passwordTextField];
@@ -1046,7 +1054,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.text= NSLocalizedString(@"login", nil);
     cell.textLabel.textColor = [UIColor colorOfLoginButtonTextColor];
-  //  cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gradImage.png"]];
+  //  cell.backgroundColor = [UIColor colorWithPatternImage:[self imageNamed:@"gradImage.png"]];
     cell.backgroundColor = [UIColor colorOfLoginButtonBackground];
     
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -1245,25 +1253,25 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
             label.text = NSLocalizedString(@"testing_connection",nil);
         } else if (isConnectionToServer) {
             if (hasInvalidAuth) {
-                errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CredentialsError.png"]];
+                errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"CredentialsError.png"]];
                 label.text = NSLocalizedString(@"authentification_not_valid",nil);
                 label.numberOfLines = 1;
                 [label setAdjustsFontSizeToFitWidth:YES];
             } else if (isHttps) {
                 if (isHttpsSecure) {
-                    errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SecureConnectionIcon.png"]];
+                    errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"SecureConnectionIcon.png"]];
                     label.text = NSLocalizedString(@"secure_connection_established",nil);
                 } else {
-                    errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NonSecureConnectionIcon.png"]];
+                    errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"NonSecureConnectionIcon.png"]];
                     label.text = NSLocalizedString(@"https_non_secure_connection_established",nil);
                 }
             } else {
-                errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NonSecureConnectionIcon.png"]];
+                errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"NonSecureConnectionIcon.png"]];
                 label.text = NSLocalizedString(@"connection_established",nil);
             }
         } else {
             if(isSSLAccepted) {
-                errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CredentialsError.png"]];
+                errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"CredentialsError.png"]];
                 NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
                 label.text = [NSLocalizedString(@"server_instance_not_found",nil) stringByReplacingOccurrencesOfString:@"$appname" withString:appName];
                 if(k_hide_url_server) {
@@ -1271,10 +1279,10 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
                     [view addSubview:button];
                 }
             } else if(self.loginMode == LoginModeMigrate){
-                errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CredentialsError.png"]];
+                errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"CredentialsError.png"]];
                 label.text = NSLocalizedString(@"error_updating_predefined_url",nil);
             } else {
-                errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CredentialsError.png"]];
+                errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"CredentialsError.png"]];
                 label.text = NSLocalizedString(@"connection_declined",nil);
             }
         }
@@ -1333,7 +1341,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
 - (UIButton *) setTheButtonForReconnectWithTheCurrentServer {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:syncImageFrameForNoURL];
-    [button setBackgroundImage:[UIImage imageNamed:@"ReconnectIcon.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[self imageNamed:@"ReconnectIcon.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(checkUrlManually) forControlEvents:UIControlEventTouchDown];
     
     return button;
@@ -1366,7 +1374,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
         return nil;
     }
     
-    UIImageView *errorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CredentialsError.png"]];
+    UIImageView *errorImage = [[UIImageView alloc] initWithImage:[self imageNamed:@"CredentialsError.png"]];
     [errorImage setFrame:okNokImageFrameFooter];
     
     UILabel* label = [[UILabel alloc] initWithFrame:textFooterFrame2];
@@ -1866,14 +1874,14 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
             isLoginButtonEnabled = NO;
         }
     }
-    
+     [[self imageNamed: @""] imageWithColor:[UIColor redColor]];
     if (isConnectionToServer) {
         if (isHttps) {
-            UIImage *currentImage = [UIImage imageNamed: @"SecureConnectionIcon.png"];
+            UIImage *currentImage = [self imageNamed: @"SecureConnectionIcon.png"];
             [checkConnectionToTheServerImage setImage:currentImage];
             [checkConnectionToTheServerImage setHidden:NO];
         } else {
-            UIImage *currentImage = [UIImage imageNamed: @"NonSecureConnectionIcon.png"];
+            UIImage *currentImage = [self imageNamed: @"NonSecureConnectionIcon.png"];
             [checkConnectionToTheServerImage setImage:currentImage];
             [checkConnectionToTheServerImage setHidden:NO];
         }
@@ -1885,7 +1893,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
             [[CheckAccessToServer sharedManager] isConnectionToTheServerByUrl:[self getUrlToCheck]];
             
         } else {
-            UIImage *currentImage = [UIImage imageNamed: @"CredentialsError.png"];
+            UIImage *currentImage = [self imageNamed: @"CredentialsError.png"];
             [checkConnectionToTheServerImage setImage:currentImage];
             [checkConnectionToTheServerImage setHidden:NO];
         }
@@ -2302,16 +2310,16 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
 -(void)hideOrShowPassword {
     if ([self.passwordTextField isSecureTextEntry]) {
         [self.passwordTextField setSecureTextEntry:NO];
-        [showPasswordCharacterButton setBackgroundImage:[UIImage imageNamed:@"NonRevealPasswordIcon.png"] forState:UIControlStateNormal];
+        [showPasswordCharacterButton setBackgroundImage:[self imageNamed:@"NonRevealPasswordIcon.png"] forState:UIControlStateNormal];
     } else {
         [self.passwordTextField setSecureTextEntry:YES];
-        [showPasswordCharacterButton setBackgroundImage:[UIImage imageNamed:@"RevealPasswordIcon.png"] forState:UIControlStateNormal];
+        [showPasswordCharacterButton setBackgroundImage:[self imageNamed:@"RevealPasswordIcon.png"] forState:UIControlStateNormal];
     }
 }
 
 - (void)hidePassword{
     [self.passwordTextField setSecureTextEntry:YES];
-    [showPasswordCharacterButton setBackgroundImage:[UIImage imageNamed:@"RevealPasswordIcon.png"] forState:UIControlStateNormal];
+    [showPasswordCharacterButton setBackgroundImage:[self imageNamed:@"RevealPasswordIcon.png"] forState:UIControlStateNormal];
 }
 
 -(void)goTryToDoLogin {
@@ -2352,7 +2360,7 @@ NSString *loginViewControllerRotate = @"loginViewControllerRotate";
     //[loginButton setEnabled:NO];
     isLoginButtonEnabled = NO;
     
-    UIImage *currentImage = [UIImage imageNamed: @"CredentialsError.png"];
+    UIImage *currentImage = [self imageNamed: @"CredentialsError.png"];
     [checkConnectionToTheServerImage setImage:currentImage];
     [checkConnectionToTheServerImage setHidden:NO];
     

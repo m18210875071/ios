@@ -24,6 +24,7 @@
 //
 
 #import "ReaderThumbView.h"
+#import "WaterMarkTool.h"
 
 @implementation ReaderThumbView
 {
@@ -64,6 +65,7 @@
 
 - (void)showImage:(UIImage *)image
 {
+    //imageView.image = [WaterMarkTool waterMarkWithImage:image size:self.bounds.size];
 	imageView.image = image; // Show image
 }
 

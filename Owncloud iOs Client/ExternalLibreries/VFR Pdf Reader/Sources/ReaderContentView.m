@@ -148,12 +148,13 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 			theContainerView.userInteractionEnabled = NO;
 			theContainerView.contentMode = UIViewContentModeRedraw;
 			theContainerView.autoresizingMask = UIViewAutoresizingNone;
-			theContainerView.backgroundColor = [UIColor whiteColor];
+			theContainerView.backgroundColor = [UIColor whiteColor]; //丁显坤whiteColor
 
 #if (READER_SHOW_SHADOWS == TRUE) // Option
 
 			theContainerView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-			theContainerView.layer.shadowRadius = 4.0f; theContainerView.layer.shadowOpacity = 1.0f;
+			theContainerView.layer.shadowRadius = 4.0f;
+            theContainerView.layer.shadowOpacity = 1.0f;
 			theContainerView.layer.shadowPath = [UIBezierPath bezierPathWithRect:theContainerView.bounds].CGPath;
 
 #endif // end of READER_SHOW_SHADOWS Option
@@ -165,7 +166,7 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 			theThumbView = [[ReaderContentThumb alloc] initWithFrame:theContentPage.bounds]; // Page thumb view
 
 			[theContainerView addSubview:theThumbView]; // Add the page thumb view to the container view
-
+            
 #endif // end of READER_ENABLE_PREVIEW Option
 
 			[theContainerView addSubview:theContentPage]; // Add the content page to the container view
